@@ -28,10 +28,7 @@ def create_app():
         'host': settings.MONGODB_SETTINGS_HOST,
         'port': settings.MONGODB_SETTINGS_PORT
     }
-    if settings.HEROKU_MONGODB_SETTINGS_URI is not None:
-        app.config['MONGODB_SETTINGS'] = {
-        'host': settings.HEROKU_MONGODB_SETTINGS_URI
-    }
+
     app.config['PORT'] = settings.PORT
     # app.config['ERROR_404_HELP'] = False
     app.config['DEBUG'] = True
@@ -42,5 +39,6 @@ def create_app():
     return app
 
 
-app = create_app()
-app.run(host='0.0.0.0', port=app.config["PORT"])
+if __name__ == "__main__":
+    app = create_app()
+    app.run(host='0.0.0.0', port=app.config["PORT"])

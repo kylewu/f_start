@@ -49,7 +49,7 @@ class UserResource(Resource):
         """
         user_model_parser.parse_args(strict=True)
         if not api.payload['handle']:
-            abort(400, 'handle could not be empty')
+            abort(400, 'handle could not be empty')  # message: xxx
         user = post_user(api.payload)
         return user, 201
 
