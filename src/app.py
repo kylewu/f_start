@@ -1,10 +1,39 @@
-#!/usr/bin/env python
-from config import app
-from controllers.user_controller import api
 
-# register the api
-app.register_blueprint(api)
+from flask import Flask
+# from flask_cors import CORS
 
-if __name__ == '__main__':
-    ''' run application '''
-    app.run(host='0.0.0.0', port=5000)
+
+from db import db
+from apis import api
+import settings
+
+
+def create_app():
+    """
+    Create flask app
+    """
+    app = Flask(__name__)
+    # CORS(app)
+
+    app.config['MONGODB_SETTINGS'] = {
+        'db': settings.MONGODB_SETTINGS_DB,
+        'username': settings.MONGODB_SETTINGS_USERNAME,
+        'password': settings.MONGODB_SETTINGS_PASSWORD,
+        'host': settings.MONGODB_SETTINGS_HOST,
+        'port': settings.MONGODB_SETTINGS_PORT
+    }
+    if settings.HEROKU_MONGODB_SETTINGS_URI is not None:
+        app.config['MONGODB_SETTINGS'] = {
+        'host': settings.HEROKU_MONGODB_SETTINGS_URI
+    }
+    app.config['PORT'] = settings.PORT
+    # app.config['ERROR_404_HELP'] = False
+    app.config['DEBUG'] = True
+    db.init_app(app)
+
+    api.init_app(app)
+    return app
+
+
+app = create_app()
+app.run(host='0.0.0.0', port=app.config["PORT"])

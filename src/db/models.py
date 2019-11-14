@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from config import db
+from db import db
 from bson.json_util import dumps
 import json
 
