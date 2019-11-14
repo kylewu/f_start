@@ -16,4 +16,5 @@ services:
     ports:
       - "8080:5000"
     environment:
-      MONGODB_URL: 'mongodb://admin:password@database:27017/admin'
+      FLASK_ENV: 'production'
+      MONGODB_SETTINGS_HOST: 'database'

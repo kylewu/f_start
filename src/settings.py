@@ -3,8 +3,6 @@ import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Mongodb settings
-HEROKU_MONGODB_SETTINGS_URI = os.getenv('MONGODB_URI', None)
-
 MONGODB_SETTINGS_DB = os.getenv('MONGODB_SETTINGS_DB', 'admin')
 MONGODB_SETTINGS_USERNAME = os.getenv('MONGODB_SETTINGS_USERNAME', 'admin')
 MONGODB_SETTINGS_PASSWORD = os.getenv('MONGODB_SETTINGS_PASSWORD', 'password')

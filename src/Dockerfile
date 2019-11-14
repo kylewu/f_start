@@ -1,6 +1,5 @@
 FROM python:3
 
-
 # Copy app
 COPY . /app
 

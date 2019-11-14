@@ -31,7 +31,7 @@ def create_app():
 
     app.config['PORT'] = settings.PORT
     # app.config['ERROR_404_HELP'] = False
-    app.config['DEBUG'] = True
+    # app.config['DEBUG'] = True
     db.init_app(app)
 
     api.init_app(app)
