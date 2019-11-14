@@ -2,10 +2,16 @@
 from flask import Flask
 # from flask_cors import CORS
 
-
 from db import db
 from apis import api
 import settings
+
+def create_default_admin(app):
+    with app.app_context():
+        from db.models import User
+        if not User.objects(handle='admin').count():
+            app.logger.warning('Creating default user')
+            User(**{'handle': 'admin'}).save()
 
 
 def create_app():
@@ -32,6 +38,7 @@ def create_app():
     db.init_app(app)
 
     api.init_app(app)
+    create_default_admin(app)
     return app
 
 
