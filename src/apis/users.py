@@ -1,9 +1,10 @@
 # pylint: disable=no-member,no-self-use
 
 from flask_restplus import Namespace, Resource, fields, reqparse, abort
+from flask import Flask, request
 
-from db.models import User
 from services.user_service import get_users, post_user
+from common.auth import login_required
 import settings
 
 api = Namespace('users', description='Users endpoints')
@@ -42,13 +43,14 @@ class UserResource(Resource):
     @api.doc('Add User')
     @api.expect(user_model)
     @api.marshal_with(user_model, code=201, as_list=False)
+    @login_required()
     @api.response(409, 'Conflict')
     def post(self):
         """
         Create User
         """
         user_model_parser.parse_args(strict=True)
-        if not api.payload['handle']:
+        if not 'handle' in request.json:
             abort(400, 'handle could not be empty')  # message: xxx
         user = post_user(api.payload)
         return user, 201
@@ -60,6 +62,7 @@ class UserResource(Resource):
         """
         List all Users, support pagination
         """
+        import pdb; pdb.set_trace()
         args = pagination_parser.parse_args()
         if args.page and int(args.page) <= 0:
             abort(400, erros={'page': 'page must be positive integer'})

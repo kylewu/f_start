@@ -9,7 +9,7 @@ import settings
 def create_default_admin(app):
     with app.app_context():
         from db.models import User
-        if not User.objects(handle='admin').count():
+        if not User.objects(handle='admin'):
             app.logger.warning('Creating default user')
             User(**{'handle': 'admin'}).save()
 
