@@ -10,7 +10,7 @@ api = Api(
 api.add_namespace(user_api, '/users')
 
 
-@api.errorhandler(Exception)
-def handle_exception(error):
-    '''Return a custom message and 400 status code'''
-    return {'message': f'Error: {error}'}, 400
+# @api.errorhandler(Exception)
+# def handle_exception(error):
+#     '''Return a custom message and 400 status code'''
+#     return {'message': f'Error: {error}'}, 400

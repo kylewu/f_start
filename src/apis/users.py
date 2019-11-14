@@ -62,7 +62,6 @@ class UserResource(Resource):
         """
         List all Users, support pagination
         """
-        import pdb; pdb.set_trace()
         args = pagination_parser.parse_args()
         if args.page and int(args.page) <= 0:
             abort(400, erros={'page': 'page must be positive integer'})
